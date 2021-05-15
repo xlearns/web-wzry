@@ -1,0 +1,69 @@
+
+//colors
+//定义颜色变量
+$colors:(
+    "info":#4b67af,
+    "grey-1":#666,
+    "primary":#db9e3f,
+    "light":#f9f9f9,
+    "white":#fff,
+    "black":#000,
+    "dark":#222,
+    "dark-1":#333,
+    "grey":#999,
+    "light-1":#d4d9de,
+    "blue-1":#1f3695,
+    "danger":#7a1c18,
+    "survive":#3d462e
+);
+$border-color:map-get($colors, "light-1");
+
+$border:(
+    t:top,
+    r:right,
+    b:bottom,
+    l:left
+);
+$font-size:(
+    xxs:0.6154,
+    xs:0.7692,//10px
+    sm:0.9231,//12px
+    md:1, //13px
+    lg:1.0769, //14px
+    xl:1.2308 //16px
+);
+$flex-jc:(
+        start:flex-start,
+        end:flex-end,
+        center:center,
+        between:space-between,
+        around:space-around
+);
+$flex-ai:(
+    start:flex-start,
+    end:flex-end,
+    center:center,
+    stretch:stretch
+);
+
+//spacing
+$spacing-types:(
+    m:margin,
+    p:padding
+);
+$spacing-directions:(
+    t:top,
+    r:right,
+    b:bottom,
+    l:left
+);
+$spacing-bace-size:1rem;//基础空间
+$spacing-size:(
+    0:0,
+    1:0.25,
+    2:0.5,
+    3:1,
+    4:1.5,
+    5:3
+);
+$base-font-size:1rem;

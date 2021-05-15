@@ -1,0 +1,253 @@
+//在css里面导入其他css 一定要加@
+@import "./var";
+
+//reset
+//重置样式
+*{  
+    //默认盒模型 后收到padding margin border等属性的影响被撑大 而border-box是以边框为准。并不会因为这些属性而改变大小
+    box-sizing:border-box;
+    //清除高亮
+    outline: none;
+}
+html{
+    font-size:13px;
+}
+body{
+    margin:0;//因为body有默认margin边距
+    font-family:Arial, Helvetica, sans-serif;
+    line-height:1.2em;//em表示相对尺寸，其相对于当前对象内文本的font-size
+    background:#f1f1f1;
+    -webkit-font-smoothing: antialiased;
+}
+a{
+    //去除下划线
+    text-decoration: none;
+    color:#999;
+}
+
+
+//$colorKey->key $color->value
+@each $colorKey,$color in $colors {
+    .text-#{$colorKey}{
+        color:$color
+    }
+    .bg-#{$colorKey}{
+        background-color:$color
+    }
+}
+
+
+//text
+//each-> $var表示变量 list表示集合
+@each $var in (left,center,right) {
+    //当要给类名或者属性值定义加变量得时候可以通过#{}来引用
+    //而属性得结果话直接引用即可
+    .text-#{$var}{
+        text-align: $var!important;
+    }
+}
+
+//font size
+// px 2 rem =>会以选中得上面得值为基值 转换rem
+
+
+@each $sizeKey,$size in $font-size{
+    .fs-#{$sizeKey}{
+        font-size:$size * $base-font-size
+    }    
+}
+
+
+//flex
+.d-flex{
+    display: flex;
+}
+
+.flex-column{
+    flex-direction: column;
+}
+
+.flex-wrap{
+    flex-wrap:wrap;
+}
+
+@each $key,$value in $flex-jc {
+    .jc-#{$key}{
+        justify-content: $value;
+    }
+}
+
+
+
+@each $var,$value in $flex-ai{
+    .ai-#{$var}{
+       align-items:$value
+    }
+}
+
+
+//左边固定。右边自适应
+.flex-1{
+    flex:1
+}
+
+
+.flex-grow-1{
+   //自动拉伸
+    flex-grow:1;
+}
+
+    @each $key,$val in $spacing-types {
+        //.m-1
+        @each $var2,$key2 in $spacing-size{
+            .#{$key}-#{$var2}{
+                 #{$val}:$key2*$spacing-bace-size  
+            }
+         }
+         
+        //.mx-1,my-1
+        @each $var2,$key2 in $spacing-size{
+            .#{$key}x-#{$var2}{
+                 #{$val}-left:$key2*$spacing-bace-size;  
+                 #{$val}-right:$key2*$spacing-bace-size  
+            }
+
+            .#{$key}y-#{$var2}{
+                #{$val}-top:$key2*$spacing-bace-size;  
+                #{$val}-bottom:$key2*$spacing-bace-size  
+           }
+         }
+          
+        
+
+
+        //.mt-1
+        @each $var1,$key1 in $spacing-directions{
+              @each $var2,$key2 in $spacing-size{
+                 .#{$key}#{$var1}-#{$var2}{
+                      #{$val}-#{$key1}:$key2*$spacing-bace-size  
+                 }
+              }  
+        }   
+        .#{$key}{
+            #{$val}:0
+        }
+    }
+
+    //button 
+    .btn{
+        //map-get()获取前面定义得变量
+        border:none;
+        border-radius:0.1538rem;
+        font-size: map-get($font-size,'sm') * $base-font-size;
+        padding: 0.2rem 0.6rem;
+        &.btn-lg{
+            display: flex;
+            align-items: center;
+            i{
+                color:map-get($colors,"primary");
+                font-weight:bold;
+                font-size: 1.5rem;
+                margin-right:0.5rem;
+            }
+            background:map-get($colors,"light");
+            border:1px solid $border-color;
+            padding:0.8rem 1rem;
+            font-size:1rem;
+        }
+    }
+
+    //nav
+   /*  .nav{
+        display: flex;
+        justify-content: space-around;
+        .nav-link{
+            //transparent透明 
+            //如果不加个
+            border-bottom:3px solid transparent;
+            //&代表上一层得本身
+            // &.active=> .nav-item .active
+            padding-bottom: 0.2rem;
+           
+            &.active{
+                color:map-get($colors, "primary" );
+                border-bottom:3px solid map-get($colors, "primary" )
+            };
+            &.nav-inver{
+                .nav-item{
+                    color:map-get($colors, "white" )
+                }
+            }
+        }
+        
+    } */
+    .nav {
+        display: flex;
+        .nav-item {
+          border-bottom: 3px solid transparent;
+          padding-bottom: 0.2rem;
+          &.active {
+            color: map-get($colors, 'primary');
+            border-bottom-color: map-get($colors, 'primary');
+          }
+        }
+        &.nav-inverse {
+          .nav-item {
+            color: map-get($colors, 'white');
+            &.active {
+              border-bottom-color: map-get($colors, 'white');
+            }
+          }
+        }
+        
+      }
+
+    .w-100{
+        width: 100%;
+    }
+    .h-100{
+        height:100%
+    }
+
+//sprite
+.sprite{
+    background: url("../images/sprite.png") no-repeat 0 0;
+    background-size:28.8462rem;
+    display: inline-block;
+    &.sprite-news{
+        width: 1.7692rem;
+        height: 1.5385rem;
+        background-position:63.546% 15.517%;
+    }
+    &.sprite-story{
+        width: 1.7692rem;
+	    height: 1.5385rem;
+        background-position:90.483% 15.614%;
+    }
+    &.sprite-arrow{
+        width: 0.7692rem;
+        height: 0.7692rem;
+        background-position:38.577% 52.076%;
+    }
+    
+}
+.text-ellipse{
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space:nowrap
+}
+
+p{
+    line-height: 1.5em;
+}
+.border-top{
+    border-top:1px solid map-get($colors, "grey")
+}
+.text-while{
+    color:white
+}
+
+.border-bottom{
+    border-bottom:1px solid #d4d9de
+}
